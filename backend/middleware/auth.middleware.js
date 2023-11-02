@@ -6,7 +6,7 @@ const auth = (req,res,next)=>{
         jwt.verify(token, "masai", (err, decoded)=> {
             if(decoded){
              req.body.userID = decoded.userID;
-             req.body.username= decoded.username
+             req.body.username= decoded.username                                                                                                                                             
               next()
             }else{
                 res.status(400).send({"error":"You are not authorised"})

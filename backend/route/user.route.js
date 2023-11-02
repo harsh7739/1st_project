@@ -2,23 +2,27 @@ const express = require("express")
 const bcrypt = require("bcrypt")
 const { UserModel } = require("../model/user.model")
 const jwt = require("jsonwebtoken")
-
 const userRouter = express.Router()
 
-
-userRouter.post("/register",(req,res)=>{
+userRouter.post("/register",async(req,res)=>{
     console.log(req.body)
     const {username,email,pass} = req.body
+    
     try {
-        bcrypt.hash(pass, 5, async(err, hash)=> {
-           if(err){
-            res.status(200).send({"msg":"can not hash password"})
-           }else{
-            const user = new UserModel({username,email,pass:hash})
-            await user.save()
-            res.status(200).send({"msg":"Registration Successfull"})
-           }
-        });
+        const user = await UserModel.findOne({email})
+        if(user){
+            res.status(200).send({"msg":"User allready exist!!"})
+        }else{
+            bcrypt.hash(pass, 5, async(err, hash)=> {
+               if(err){
+                res.status(200).send({"msg":"can not hash password"})
+               }else{
+                const user = new UserModel({username,email,pass:hash})
+                await user.save()
+                res.status(200).send({"msg":"Registration Successfull"})
+               }
+            });
+        }
     } catch (error) {
         res.status(400).send({"error":error})
     }

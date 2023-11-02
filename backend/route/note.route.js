@@ -27,7 +27,6 @@ noteRouter.post("/create",async(req,res)=>{
 noteRouter.patch("/update/:noteID",async(req,res)=>{
 const {noteID} = req.params
 const notes = await NoteModel.findOne({_id:noteID})
-
 try {
     if(req.body.username==notes.username){
         await NoteModel.findByIdAndUpdate({_id:noteID},req.body)
@@ -43,7 +42,6 @@ try {
 noteRouter.delete("/delete/:noteID",async(req,res)=>{
     const {noteID} = req.params
     const notes = await NoteModel.findOne({_id:noteID})
-    
     try {
         if(req.body.username==notes.username){
             await NoteModel.findByIdAndDelete({_id:noteID},req.body)
