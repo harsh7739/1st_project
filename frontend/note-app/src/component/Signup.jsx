@@ -1,8 +1,4 @@
 import { useState } from "react"
-<<<<<<< HEAD
-=======
-import axios from "axios"
->>>>>>> c3b8dc45370adae5606b1bc88a4c03f037e6fe3b
 
 function Signup(){
     const [username,setusername] = useState("")
@@ -20,14 +16,12 @@ const handleSubmit = async(e)=>{
         body:JSON.stringify({username,email,pass})
     })
    res = await res.json()
-<<<<<<< HEAD
-}
-=======
-    console.log(res)
 
 }
 
->>>>>>> c3b8dc45370adae5606b1bc88a4c03f037e6fe3b
+
+
+
     return (
         <>
         <form onSubmit={handleSubmit}>
